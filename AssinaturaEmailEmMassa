@@ -19,49 +19,10 @@ foreach ($usuario in $usuarios) { #itera sobre cada usuário encontrado em $usua
  
     $assinatura = @"    ##adicionar seu html
         <div>
-        <p style=margin:0;font-size:14.5pt;font-family:Calibri,sans-serif;color:#0095d9;font-weight:700;>$NomeFun</p>
-        <p style=margin:0;font-size:13pt;font-family:Calibri,sans-serif;color:#4c4d4f>Texto</p>
-        <p style=margin:0;font-size:12pt;font-family:Calibri,sans-serif;color:#4c4d4f>$TelFun</p>
+        <p>$NomeFun</p>
+        <p>Texto</p>
+        <p>$TelFun</p>
         </div>
-        <div style= >
-        <table>
-        <tr>
-        <td>
-        <img alt="" >  
-        </td>
-
-        <td>
-        <a href=>
-        <img alt="">
-        </a>
-        <a href= >
-        <img alt=""src=>
-        </a>
-        <a  href="">
-        <img alt="">
-        </a>
-        <a href=">
-        <img alt="">
-        </a>
-        <a href=>
-        <img alt="">
-        </a>
-        <p style=>
-        <a style=">
-        </p>
-        <p style=>
-        <a rel=  </a>
-        </p>
-        </td>
-        </tr>
-        </table>
-        </div>
-        <div>
-        <img alt="">
-        </div>
-        <div style="">
-        <span style=>
-
         "@
  
    $assinaturaMobile = 
@@ -72,17 +33,11 @@ foreach ($usuario in $usuarios) { #itera sobre cada usuário encontrado em $usua
 
   $TelFun
 
-  "
- 
-         Write-Output $assinaturaMobile
- 
+  " 
          Set-MailboxMessageConfiguration -Identity $identity -Signaturehtml $assinatura -SignatureTextOnMobile $assinaturaMobile -AutoAddSignatureOnMobile $true -AutoAddSignatureOnReply $true -UseDefaultSignatureOnMobile $false
- 
-         
-
+ }
          Write-Output "executou"
  
     
 
-}
  
