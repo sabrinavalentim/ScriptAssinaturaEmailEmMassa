@@ -1,0 +1,88 @@
+
+
+Import-Module ExchangeOnlineManagement #Importando modulo exchange
+ 
+Connect-ExchangeOnline -UserPrincipalName seu.email@seudominio.com.br #conectando exchange online.
+ 
+$usuarios = Get-Mailbox -Identity " seu.email@seudominio.com.br" -ResultSize Unlimited #Busca a caixa de correio especificada (exemplo.usuario@empresa.com) e armazena na variável $usuarios
+ 
+ 
+foreach ($usuario in $usuarios) { #itera sobre cada usuário encontrado em $usuarios e aplica as configurações de assinatura para cada um.
+ 
+    $identity = $usuario.PrimarySmtpAddress #$identity: guarda o e-mail principal.
+
+    $userDetails = Get-User -Identity $usuario.UserPrincipalName # armazena detalhes adicionais do usuário
+
+    $TelFun = $userDetails.Phone #guarda o telefone do usuário.
+
+    $NomeFun = $($usuario.DisplayName) #guarda o nome completo (DisplayName), usado na assinatura.
+ 
+    $assinatura = @"    ##adicionar seu html
+        <div>
+        <p style=margin:0;font-size:14.5pt;font-family:Calibri,sans-serif;color:#0095d9;font-weight:700;>$NomeFun</p>
+        <p style=margin:0;font-size:13pt;font-family:Calibri,sans-serif;color:#4c4d4f>Texto</p>
+        <p style=margin:0;font-size:12pt;font-family:Calibri,sans-serif;color:#4c4d4f>$TelFun</p>
+        </div>
+        <div style= >
+        <table>
+        <tr>
+        <td>
+        <img alt="" >  
+        </td>
+
+        <td>
+        <a href=>
+        <img alt="">
+        </a>
+        <a href= >
+        <img alt=""src=>
+        </a>
+        <a  href="">
+        <img alt="">
+        </a>
+        <a href=">
+        <img alt="">
+        </a>
+        <a href=>
+        <img alt="">
+        </a>
+        <p style=>
+        <a style=">
+        </p>
+        <p style=>
+        <a rel=  </a>
+        </p>
+        </td>
+        </tr>
+        </table>
+        </div>
+        <div>
+        <img alt="">
+        </div>
+        <div style="">
+        <span style=>
+
+        "@
+ 
+   $assinaturaMobile = 
+
+  "$NomeFun
+
+  Texto
+
+  $TelFun
+
+  "
+ 
+         Write-Output $assinaturaMobile
+ 
+         Set-MailboxMessageConfiguration -Identity $identity -Signaturehtml $assinatura -SignatureTextOnMobile $assinaturaMobile -AutoAddSignatureOnMobile $true -AutoAddSignatureOnReply $true -UseDefaultSignatureOnMobile $false
+ 
+         
+
+         Write-Output "executou"
+ 
+    
+
+}
+ 
